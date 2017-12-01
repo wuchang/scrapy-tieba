@@ -1,0 +1,36 @@
+version: '2'
+services:
+  app:
+    build: .
+    image: yqadmin
+    command: python yqadmin/manage.py runserver 0.0.0.0:1100 
+#    command: bash run.sh
+    volumes:
+      - ./:/app
+#      - .data/log:/app/logs
+    working_dir: /app
+    ports:
+      - "1100:1100"  
+    depends_on:
+      - "db"
+#    environment:
+#     - DEBUG_PYSOLR= "0"
+#    restart: always
+  db:
+    image: postgres
+    # volumes_from:
+    #   - postgres_data
+#    ports:
+#      - "5432:5432"
+    volumes:
+       - .data/db:/var/lib/postgresql/data
+#      - postgres_data:/var/lib/postgresql/data
+      #- /e/workcode/tieba-scrapy2017/.data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=tieba
+
+volumes:
+  postgres_data:
+    driver: local

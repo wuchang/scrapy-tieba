@@ -1,0 +1,9 @@
+/logs/
+.data
+env
+env2
+env3
+*.pyc
+build/
+*.swp
+project.egg-info/
